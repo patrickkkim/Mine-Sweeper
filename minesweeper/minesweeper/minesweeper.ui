@@ -1,8 +1,8 @@
 <UI version="4.0" >
- <class>minesweeperClass</class>
- <widget class="QMainWindow" name="minesweeperClass" >
+ <class>MineSweeperClass</class>
+ <widget class="QMainWindow" name="MineSweeperClass" >
   <property name="objectName" >
-   <string notr="true">minesweeperClass</string>
+   <string notr="true">MineSweeperClass</string>
   </property>
   <property name="geometry" >
    <rect>
@@ -13,7 +13,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>minesweeper</string>
+   <string>MineSweeper</string>
   </property>
   <widget class="QMenuBar" name="menuBar" />
   <widget class="QToolBar" name="mainToolBar" />
@@ -23,7 +23,7 @@
  <layoutDefault spacing="6" margin="11" />
  <pixmapfunction></pixmapfunction>
  <resources>
-   <include location="minesweeper.qrc"/>
+   <include location="MineSweeper.qrc"/>
  </resources>
  <connections/>
 </UI>

@@ -1,4 +1,4 @@
 <RCC>
-    <qresource prefix="minesweeper">
+    <qresource prefix="MineSweeper">
     </qresource>
 </RCC>

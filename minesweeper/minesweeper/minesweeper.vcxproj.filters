@@ -30,12 +30,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="minesweeper.ui">
+    <QtMoc Include="MineSweeper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="MineSweeper.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="minesweeper.qrc">
+    <QtRcc Include="MineSweeper.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>

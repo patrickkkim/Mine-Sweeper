@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.960
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "minesweeper", "minesweeper\minesweeper.vcxproj", "{3C0D524D-60A8-4C61-93D1-5F23BC70FBAA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MineSweeper", "MineSweeper\MineSweeper.vcxproj", "{11E6F625-159D-43CC-BD90-D99570F019E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3C0D524D-60A8-4C61-93D1-5F23BC70FBAA}.Debug|x64.ActiveCfg = Debug|x64
-		{3C0D524D-60A8-4C61-93D1-5F23BC70FBAA}.Debug|x64.Build.0 = Debug|x64
-		{3C0D524D-60A8-4C61-93D1-5F23BC70FBAA}.Release|x64.ActiveCfg = Release|x64
-		{3C0D524D-60A8-4C61-93D1-5F23BC70FBAA}.Release|x64.Build.0 = Release|x64
+		{11E6F625-159D-43CC-BD90-D99570F019E7}.Debug|x64.ActiveCfg = Debug|x64
+		{11E6F625-159D-43CC-BD90-D99570F019E7}.Debug|x64.Build.0 = Debug|x64
+		{11E6F625-159D-43CC-BD90-D99570F019E7}.Release|x64.ActiveCfg = Release|x64
+		{11E6F625-159D-43CC-BD90-D99570F019E7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0ABBF2C6-1CB2-4060-9DF2-993726B82ABF}
+		SolutionGuid = {723817FB-B7CF-4CAB-8645-8F43F327A1E8}
 	EndGlobalSection
 EndGlobal

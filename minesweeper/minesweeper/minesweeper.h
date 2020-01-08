@@ -1,15 +1,15 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "ui_minesweeper.h"
+#include "ui_MineSweeper.h"
 
-class minesweeper : public QMainWindow
+class MineSweeper : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	minesweeper(QWidget *parent = Q_NULLPTR);
+	MineSweeper(QWidget *parent = Q_NULLPTR);
 
 private:
-	Ui::minesweeperClass ui;
+	Ui::MineSweeperClass ui;
 };
