@@ -3,15 +3,7 @@
 #include <QPushButton>
 #include <QGridLayout>
 
-class CustomButton : public QWidget {
-public:
-	CustomButton(QWidget *parent = 0) {
-		QPushButton *mineButton = new QPushButton("X", this);
-		
-		connect(mineButton, &QPushButton::clicked, qApp, &QApplication::quit);
-	}
-};
-
+//그리드를 생성하는 클래스
 class Grid : public QWidget {
 public:
 	Grid(QWidget *parent = 0) {
@@ -20,6 +12,7 @@ public:
 
 		int pos = 0;
 
+		//가로,세로 그리드를 버튼으로 생성함
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++) {
 				QPushButton *btn = new QPushButton(this);
