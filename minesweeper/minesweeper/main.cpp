@@ -28,7 +28,7 @@ public:
 		std::uniform_int_distribution<int> distCol(0, COL -1);
 
 		//º¤ÅÍ Çà,¿­¿¡ Áö·Ú(1)¸¦ ·£´ýÀ¸·Î »ý¼º
-		int mineCount = 25;
+		int mineCount = 45;
 		int randCol;
 		int randRow;
 		while (mineCount > 0) {
@@ -72,11 +72,34 @@ public:
 		QLabel *label = new QLabel(QString::number(mineData.data[x][y]), this);
 		label->setAlignment(Qt::AlignCenter);
 		grid->addWidget(label, x, y);
+
+		if (isMine(x, y) == true) {
+			for (int i = 0; i < COL; i++) {
+				for (int j = 0; j < ROW; j++) {
+					QWidget *widget = grid->itemAtPosition(i, j)->widget();
+					layout()->removeWidget(widget);
+					delete(widget);
+				}
+			}
+			QLabel *label = new QLabel("GAME OVER", this);
+			label->setAlignment(Qt::AlignCenter);
+			grid->addWidget(label);
+		}
+	}
+
+	bool isGameOver() {}
+
+	bool isMine(int x, int y) {
+		if (mineData.data[x][y] == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 };
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
 
 	Grid window;
