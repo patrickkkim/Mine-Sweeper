@@ -9,9 +9,9 @@
 
 const int WIDTH = 300; //윈도우 창의 크기
 const int HEIGHT = 200;
-
-const int ROW = 10; //지뢰칸의 크기
+const int ROW = 10; //지뢰배열의 크기
 const int COL = 20;
+const int MINECOUNT = 55; //지뢰최대 갯수
 
 //그리드의 데이터를 생성하는 클래스
 class MineData {
@@ -28,7 +28,7 @@ public:
 		std::uniform_int_distribution<int> distCol(0, COL -1);
 
 		//벡터 행,열에 지뢰(1)를 랜덤으로 생성
-		int mineCount = 45;
+		int mineCount = MINECOUNT;
 		int randCol;
 		int randRow;
 		while (mineCount > 0) {
@@ -51,9 +51,8 @@ public:
 		QGridLayout *grid = new QGridLayout(this);
 		grid->setSpacing(0);
 
-		int pos = 0;
-
 		//그리드에 버튼 행열로 생성함
+		int pos = 0;
 		for (int i = 0; i < COL; i++) {
 			for (int j = 0; j < ROW; j++) {
 				QPushButton *button = new QPushButton(this);
@@ -69,10 +68,20 @@ public:
 		QWidget *btn = grid->itemAtPosition(x, y)->widget();
 		layout()->removeWidget(btn);
 		delete btn;
-		QLabel *label = new QLabel(QString::number(mineData.data[x][y]), this);
-		label->setAlignment(Qt::AlignCenter);
-		grid->addWidget(label, x, y);
-
+		if (isMine(x, y) == true) {
+			QLabel *label = new QLabel(this);
+			QPixmap pixmap("../icons/Mine.png");
+			label->setPixmap(pixmap.scaled(26, 26, Qt::KeepAspectRatio));
+			grid->addWidget(label, x, y);
+		}
+		else {
+			//QLabel *label = new QLabel(QString::number(mineData.data[x][y]), this);
+			//label->setAlignment(Qt::AlignCenter);
+			//grid->addWidget(label, x, y);
+		}
+		
+		// 게임오버 임시적으로 구현. 삭제바람
+		/*
 		if (isMine(x, y) == true) {
 			for (int i = 0; i < COL; i++) {
 				for (int j = 0; j < ROW; j++) {
@@ -84,7 +93,8 @@ public:
 			QLabel *label = new QLabel("GAME OVER", this);
 			label->setAlignment(Qt::AlignCenter);
 			grid->addWidget(label);
-		}
+		} 
+		*/
 	}
 
 	bool isGameOver() {}
