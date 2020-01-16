@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="data.cpp" />
+    <ClCompile Include="event.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="minegrid.cpp" />
   </ItemGroup>
@@ -95,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data.h" />
+    <QtMoc Include="event.h" />
     <ClInclude Include="minegrid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

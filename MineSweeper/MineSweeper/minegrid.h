@@ -10,13 +10,18 @@ private:
 	Data *data;
 	QGridLayout *grid;
 
-	void buttonClicked(int x, int y);
+	void leftBtnClicked(int x, int y);
+	void RightBtnClicked(int x, int y);
 	void openAllBlankBtn(int x, int y);
-	void openBtn(int x, int y);
+	void openWidget(int x, int y);
+	void flagBtn(int x, int y);
+	void unFlag(int x, int y);
+	bool isFlagged(int x, int y);
 	bool isButton(int x, int y);
 	bool isMine(int x, int y);
 
 public:
+	void addAdjData(int x, int y, int count);
 	MineGrid(int r, int c, int maxMine, QWidget *parent = 0);
 	//bool isGameOver();
 };
