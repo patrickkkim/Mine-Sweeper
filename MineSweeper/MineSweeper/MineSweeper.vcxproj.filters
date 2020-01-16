@@ -34,15 +34,9 @@
     <ClCompile Include="data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MineSweeper.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="event.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
