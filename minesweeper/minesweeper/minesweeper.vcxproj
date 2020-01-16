@@ -80,7 +80,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="minegrid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MineSweeper.h" />
@@ -90,6 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="MineSweeper.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="data.h" />
+    <ClInclude Include="minegrid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

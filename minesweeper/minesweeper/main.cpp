@@ -13,15 +13,6 @@ const int ROW = 10; //지뢰배열의 크기
 const int COL = 20;
 const int MINEMAXCOUNT = 40; //지뢰최대 갯수
 
-struct Coordinate {
-	int x;
-	int y;
-	int xStart;
-	int yStart;
-	int xRange;
-	int yRange;
-};
-
 //그리드의 데이터를 생성하는 클래스
 class Data {
 public:
@@ -61,15 +52,13 @@ public:
 
 		for (int x = 0; x < COL; x++) {
 			for (int y = 0; y < ROW; y++) {
-				Coordinate point = { x, y };
-				adjData[x][y] = checkAdjBtn(point);
+				adjData[x][y] = checkAdjBtn(x, y);
 			}
 		}
 	}
 
 	// 주변칸에 지뢰가 몇개있는지 센다
-	int checkAdjBtn(Coordinate point) {
-		int x = point.x, y = point.y;
+	int checkAdjBtn(int x, int y) {
 		int xStart = -1, yStart = -1;
 		int xRange = 2, yRange = 2;
 		if (x == 0 || y == 0) {
@@ -126,8 +115,7 @@ public:
 			for (int j = 0; j < ROW; j++) {
 				QPushButton *button = new QPushButton(this);
 				button->setFixedSize(28, 28);
-				Coordinate point = { i , j };
-				connect(button, &QPushButton::clicked, grid, [this, point] { buttonClicked(point); });
+				connect(button, &QPushButton::clicked, grid, [this, i, j] { buttonClicked(i, j); });
 				grid->addWidget(button, i, j);
 				pos++;
 			}
@@ -135,11 +123,9 @@ public:
 	}
 
 	// 버튼이 눌렷을시 버튼을 없애고 그자리에 지뢰데이터를 표시함
-	void buttonClicked(Coordinate point) {
-		int x = point.x, y = point.y;
-
+	void buttonClicked(int x, int y) {
 		if (isMine(x, y)) {
-			openBtn(point);
+			openBtn(x, y);
 			QLabel *label = new QLabel(this);
 			QPixmap pixmap("../icons/Mine.png");
 			label->setPixmap(pixmap.scaled(26, 26, Qt::KeepAspectRatio));
@@ -148,7 +134,7 @@ public:
 		else {
 			int adjCount = data.adjData[x][y];
 			if (adjCount != 0) {
-				openBtn(point);
+				openBtn(x, y);
 				QLabel *label = new QLabel(QString::number(adjCount), this);
 				label->setAlignment(Qt::AlignCenter);
 				grid->addWidget(label, x, y);
@@ -161,14 +147,13 @@ public:
 
 	// 해당 빈칸과 서로 접하고있는 모든 빈칸을 열어놓음
 	void openAllBlankBtn(int x, int y) {
-		Coordinate point = { x, y };
-		if (isButton(point) == false || data.adjData[x][y] != 0) {
+		if (isButton(x, y) == false || data.adjData[x][y] != 0) {
 			return;
 		}
 		else {
-			openBtn(point);
+			openBtn(x, y);
 			QLabel *label = new QLabel(this);
-			grid->addWidget(label, point.x, point.y);
+			grid->addWidget(label, x, y);
 			openAllBlankBtn(x-1, y);
 			openAllBlankBtn(x+1, y);
 			openAllBlankBtn(x, y-1);
@@ -177,18 +162,18 @@ public:
 	}
 	
 	// 해당 버튼을 열음
-	void openBtn(Coordinate point) {
-		QWidget *btn = grid->itemAtPosition(point.x, point.y)->widget();
+	void openBtn(int x, int y) {
+		QWidget *btn = grid->itemAtPosition(x, y)->widget();
 		layout()->removeWidget(btn);
 		delete btn;
 	}
 
 	// 해당 칸에 버튼이 있는지 확인
-	bool isButton(Coordinate point) {
-		int x = point.x, y = point.y;
+	bool isButton(int x, int y) {
 		if (x < 0 || y < 0 || x >= COL || y >= ROW) {
 			return false;
 		}
+
 		QPushButton *type = qobject_cast<QPushButton*>(grid->itemAtPosition(x, y)->widget());
 		if (type == nullptr) {
 			return false;
