@@ -1,27 +1,41 @@
 #pragma once
 #include <QWidget>
 #include <QGridLayout>
+#include <QVBoxLayout>
+#include <vector>
 #include "data.h"
+#include "event.h"
 
-class MineGrid : public QWidget {
+class MineGrid : public QGridLayout {
 private:
 	int row, col;
 	int mineMaxCount;
+	int remainingMine;
+	bool isFirstMove;
 	Data *data;
 	QGridLayout *grid;
 
-	void leftBtnClicked(int x, int y);
-	void RightBtnClicked(int x, int y);
-	void openAllBlankBtn(int x, int y);
-	void openWidget(int x, int y);
-	void flagBtn(int x, int y);
-	void unFlag(int x, int y);
-	bool isFlagged(int x, int y);
-	bool isButton(int x, int y);
-	bool isMine(int x, int y);
+	void leftBtnClicked(int, int);
+	void RightBtnClicked(int, int);
+	void middleBtnClicked(int, int);
+	void middleBtnReleased(int, int);
+	void addAdjLabel(int, int);
+	void addMineLabel(int, int);
+	void openAllBlankBtn(int, int);
+	void openBtn(int, int);
+	void openWidget(int, int);
+	void flagBtn(int, int);
+	void unFlag(int, int);
+	void setFirstMove(int, int);
+	bool isFlagged(int, int);
+	bool isButton(int, int);
+	void gameOver();
+	void changeRmnMineBox(QString, bool);
 
 public:
-	void addAdjData(int x, int y, int count);
-	MineGrid(int r, int c, int maxMine, QWidget *parent = 0);
-	//bool isGameOver();
+	TextChanged *changedSig;
+
+	QGridLayout* getGrid();
+	int getRemainingMine();
+	MineGrid(int, int, int, QWidget *parent = 0);
 };

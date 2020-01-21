@@ -84,6 +84,7 @@
     <ClCompile Include="event.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="minegrid.cpp" />
+    <ClCompile Include="windowbox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MineSweeper.h" />
@@ -96,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data.h" />
+    <ClInclude Include="windowbox.h" />
     <QtMoc Include="event.h" />
     <ClInclude Include="minegrid.h" />
   </ItemGroup>
