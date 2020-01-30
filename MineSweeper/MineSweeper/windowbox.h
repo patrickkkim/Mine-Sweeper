@@ -18,11 +18,14 @@ public:
 	QTimer *timer;
 	QPushButton *retryBtn;
 	TextChanged *textChanged;
+	GameOver *gameOverSig;
 	int time;
 
 	void initUI();
 	void setText(QString text);
 	void timerSlot();
 	void retryClicked(int r, int c, int max);
+	void gameOver();
+	void victory();
 	WindowBox(int r, int c, int max, QWidget *parent = 0);
 };

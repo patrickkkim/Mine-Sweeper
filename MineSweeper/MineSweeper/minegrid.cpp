@@ -14,6 +14,7 @@ MineGrid::MineGrid(int r, int c, int maxMine, QWidget *parent) {
 	grid = new QGridLayout();
 	grid->setSpacing(0);
 	changedSig = new TextChanged;
+	gameOverSig = new GameOver;
 
 	//그리드에 버튼 행열로 생성함
 	for (int i = 0; i < col; i++) {
@@ -32,9 +33,10 @@ void MineGrid::leftBtnClicked(int x, int y) {
 	if (isFirstMove) {
 		setFirstMove(x, y);
 		isFirstMove = false;
-		return;
 	}
-	openBtn(x, y);
+	else {
+		openBtn(x, y);
+	}
 }
 
 void MineGrid::RightBtnClicked(int x, int y) {
@@ -87,6 +89,7 @@ void MineGrid::middleBtnReleased(int x, int y) {
 void MineGrid::addAdjLabel(int x, int y) {
 	QCustomDataLabel *label = new QCustomDataLabel();
 	label->setText(QString::number(data->getAdjData(x, y)));
+	label->setStyleSheet("QCustomPushButton:hover:pressed{background-color:red;}");
 	connect(label, &QCustomDataLabel::middlePressed, grid, [this, x, y] { middleBtnClicked(x, y); });
 	connect(label, &QCustomDataLabel::middleReleased, grid, [this, x, y] { middleBtnReleased(x, y); });
 	label->setAlignment(Qt::AlignCenter);
@@ -95,7 +98,7 @@ void MineGrid::addAdjLabel(int x, int y) {
 
 void MineGrid::addMineLabel(int x, int y) {
 	QLabel *label = new QLabel();
-	QPixmap minePixmap("../icons/Mine.png");
+	QPixmap minePixmap(":/MineSweeper/icons/Mine.png");
 	label->setPixmap(minePixmap.scaled(26, 26, Qt::KeepAspectRatio));
 	grid->addWidget(label, x, y);
 }
@@ -106,11 +109,11 @@ void MineGrid::openAllBlankBtn(int x, int y) {
 		return;
 	}
 	else if (data->getAdjData(x, y) != 0 && data->isMine(x, y) == false) {
-		openWidget(x, y);
+		removeButton(x, y);
 		addAdjLabel(x, y);
 	}
 	else {
-		openWidget(x, y);
+		removeButton(x, y);
 		QLabel *label = new QLabel();
 		grid->addWidget(label, x, y);
 		for (int i = -1; i < 2; i++) {
@@ -123,26 +126,28 @@ void MineGrid::openAllBlankBtn(int x, int y) {
 
 void MineGrid::openBtn(int x, int y) {
 	if (data->isMine(x, y)) {
-		openWidget(x, y);
+		removeButton(x, y);
 		addMineLabel(x, y);
 		gameOver();
 	}
 	else {
 		if (data->getAdjData(x, y) != 0) {
-			openWidget(x, y);
+			removeButton(x, y);
 			addAdjLabel(x, y);
 		}
 		else {
 			openAllBlankBtn(x, y);
 		}
 	}
+	if (isVictory()) {
+		gameOverSig->victoryEvent();
+	}
 }
 
-// 해당 버튼을 열음
-void MineGrid::openWidget(int x, int y) {
+void MineGrid::removeButton(int x, int y) {
 	QWidget *widget = grid->itemAtPosition(x, y)->widget();
 	this->removeWidget(widget);
-	delete(widget);
+	data->eraseMineBtnData(x, y);
 
 	if (isFlagged(x, y)) {
 		unFlag(x, y);
@@ -150,7 +155,7 @@ void MineGrid::openWidget(int x, int y) {
 }
 
 void MineGrid::flagBtn(int x, int y) {
-	QPixmap flagPixMap("../icons/flag.png");
+	QPixmap flagPixMap(":/MineSweeper/icons/Flag.png");
 	QCustomIconLabel *label = new QCustomIconLabel();
 	connect(label, &QCustomIconLabel::rightClicked, grid, [this, x, y] { unFlag(x, y); });
 	label->setPixmap(flagPixMap.scaled(26, 26, Qt::KeepAspectRatio));
@@ -167,21 +172,9 @@ void MineGrid::unFlag(int x, int y) {
 }
 
 void MineGrid::setFirstMove(int x, int y) {
-	for (int i = x - 1; i <= x + 1; i++) {
-		for (int j = y - 1; j <= y + 1; j++) {
-			if (isButton(i, j)) {
-				data->setMineData(i, j, 0);
-			}
-		}
-	}
+	data->setFirstMove(x, y);
 	data->initAdjData();
-	if (data->getAdjData(x, y) != 0) {
-		openWidget(x, y);
-		addAdjLabel(x, y);
-	}
-	else {
-		openAllBlankBtn(x, y);
-	}
+	openAllBlankBtn(x, y);
 }
 
 bool MineGrid::isFlagged(int x, int y) {
@@ -211,6 +204,15 @@ bool MineGrid::isButton(int x, int y) {
 	}
 }
 
+bool MineGrid::isVictory() {
+	if (data->getMineBtnCount() != mineMaxCount) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 void MineGrid::gameOver() {
 	for (int i = 0; i < col; i++) {
 		for (int j = 0; j < row; j++) {
@@ -219,6 +221,7 @@ void MineGrid::gameOver() {
 			}
 		}
 	}
+	gameOverSig->gameOverEvent();
 }
 
 void MineGrid::changeRmnMineBox(QString text, bool increase) {

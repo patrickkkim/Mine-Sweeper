@@ -44,3 +44,13 @@ public slots:
 signals:
 	void valueChanged(QString);
 };
+
+class GameOver : public QObject{
+	Q_OBJECT
+public slots:
+	void gameOverEvent();
+	void victoryEvent();
+signals:
+	void gameOver();
+	void victory();
+};

@@ -35,3 +35,10 @@ TextChanged::TextChanged(QWidget *parent) {}
 void TextChanged::changeValue(QString text) {
 	emit valueChanged(text);
 }
+
+void GameOver::gameOverEvent() {
+	emit gameOver();
+}
+void GameOver::victoryEvent() {
+	emit victory();
+}

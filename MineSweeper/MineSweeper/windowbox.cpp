@@ -9,7 +9,10 @@ const int BTNHEIGHT = 27;
 WindowBox::WindowBox(int r, int c, int max, QWidget *parent) {
 	minegrid = new MineGrid(r, c, max);
 	textChanged = minegrid->changedSig;
+	gameOverSig = minegrid->gameOverSig;
 	connect(textChanged, &TextChanged::valueChanged, this, &WindowBox::setText);
+	connect(minegrid->gameOverSig, &GameOver::gameOver, this, &WindowBox::gameOver);
+	connect(minegrid->gameOverSig, &GameOver::victory, this, &WindowBox::victory);
 	retryBtn = new QPushButton("Retry", this);
 	connect(retryBtn, &QPushButton::clicked, this, [this, r, c, max] { retryClicked(r, c, max); });
 	time = 0;
@@ -67,12 +70,27 @@ void WindowBox::retryClicked(int r, int c, int max) {
 	minegrid = new MineGrid(r, c, max);
 	vBox->addLayout(minegrid->getGrid());
 	time = 0;
-	timeLabel->setText(QString::number(time));
+	timeLabel->setText("T: " + QString::number(time));
+	timer->start();
 	timeLabel->update();
 	textChanged = minegrid->changedSig;
+	gameOverSig = minegrid->gameOverSig;
 	connect(textChanged, &TextChanged::valueChanged, this, &WindowBox::setText);
+	connect(minegrid->gameOverSig, &GameOver::gameOver, this, &WindowBox::gameOver);
 	mineCountLbl->setText(QString::number(max));
 	mineCountLbl->update();
 
 	vBox->update();
+}
+
+void WindowBox::gameOver() {
+	// stop time
+	timer->stop();
+	// make text "game over"
+	mineCountLbl->setText("(X..X)");
+}
+
+void WindowBox::victory() {
+	timer->stop();
+	mineCountLbl->setText("Wazam");
 }

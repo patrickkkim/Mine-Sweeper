@@ -23,17 +23,19 @@ private:
 	void addMineLabel(int, int);
 	void openAllBlankBtn(int, int);
 	void openBtn(int, int);
-	void openWidget(int, int);
+	void removeButton(int, int);
 	void flagBtn(int, int);
 	void unFlag(int, int);
 	void setFirstMove(int, int);
 	bool isFlagged(int, int);
 	bool isButton(int, int);
+	bool isVictory();
 	void gameOver();
 	void changeRmnMineBox(QString, bool);
 
 public:
 	TextChanged *changedSig;
+	GameOver *gameOverSig;
 
 	QGridLayout* getGrid();
 	int getRemainingMine();
