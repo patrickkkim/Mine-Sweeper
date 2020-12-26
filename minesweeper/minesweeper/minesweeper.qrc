@@ -1,6 +1,4 @@
 <RCC>
-    <qresource prefix="/MineSweeper">
-        <file>icons/Flag.png</file>
-        <file>icons/Mine.png</file>
+    <qresource prefix="MineSweeper">
     </qresource>
 </RCC>

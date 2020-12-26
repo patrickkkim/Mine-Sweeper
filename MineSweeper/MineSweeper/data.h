@@ -23,7 +23,7 @@ public:
 	bool isMine(int, int);
 	int getMineData(int, int);
 	int getAdjData(int, int);
-	int getRandomNum(int);
+	static int getRandomNum(int, int min = 0);
 	QCustomIconLabel* getFlagData(int, int);
 	QCustomPushButton* getMineBtnData(int, int);
 	int getMineBtnCount();

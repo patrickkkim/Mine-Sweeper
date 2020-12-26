@@ -121,10 +121,10 @@ int Data::getAdjData(int x, int y) {
 	return adjData[x][y];
 }
 
-int Data::getRandomNum(int max) {
+int Data::getRandomNum(int max, int min) {
 	std::random_device seeder;
 	std::mt19937 engine(seeder());
-	std::uniform_int_distribution<int> dist(0, max - 1);
+	std::uniform_int_distribution<int> dist(min, max - 1);
 	int randNum = dist(engine);
 	return randNum;
 }
@@ -164,10 +164,17 @@ void Data::setFirstMove(int x, int y) {
 				int randRow = getRandomNum(row);
 
 				//exception where you put your mine into the adjacent square where you clicked.
+				if (randCol >= x - 1 && randCol <= x + 1) {
+					continue;
+				}
+				else if (randRow >= y - 1 && randRow <= y + 1) {
+					continue;
+				}
 
 				if (isMine(randCol, randRow) == false) {
 					setMineData(i, j, 0);
 					setMineData(randCol, randRow, 1);
+					break;
 				}
 				else {
 					continue;

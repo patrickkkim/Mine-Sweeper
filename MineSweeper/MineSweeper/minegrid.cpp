@@ -5,6 +5,8 @@
 #include "minegrid.h"
 #include "event.h"
 
+const QString projectDir = "C:/Users/Artium/source/repos/MineSweeper/MineSweeper";
+
 MineGrid::MineGrid(int r, int c, int maxMine, QWidget *parent) {
 	row = r, col = c;
 	mineMaxCount = maxMine;
@@ -98,7 +100,7 @@ void MineGrid::addAdjLabel(int x, int y) {
 
 void MineGrid::addMineLabel(int x, int y) {
 	QLabel *label = new QLabel();
-	QPixmap minePixmap(":/MineSweeper/icons/Mine.png");
+	QPixmap minePixmap(projectDir + "/icons/Mine.png");
 	label->setPixmap(minePixmap.scaled(26, 26, Qt::KeepAspectRatio));
 	grid->addWidget(label, x, y);
 }
@@ -155,7 +157,7 @@ void MineGrid::removeButton(int x, int y) {
 }
 
 void MineGrid::flagBtn(int x, int y) {
-	QPixmap flagPixMap(":/MineSweeper/icons/Flag.png");
+	QPixmap flagPixMap(projectDir + "/icons/Flag.png");
 	QCustomIconLabel *label = new QCustomIconLabel();
 	connect(label, &QCustomIconLabel::rightClicked, grid, [this, x, y] { unFlag(x, y); });
 	label->setPixmap(flagPixMap.scaled(26, 26, Qt::KeepAspectRatio));

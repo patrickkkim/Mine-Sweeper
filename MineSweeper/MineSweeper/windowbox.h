@@ -6,13 +6,16 @@
 #include <QPushButton>
 #include "minegrid.h"
 #include "event.h"
+#include "infobox.h"
 
 class WindowBox : public  QWidget {
 public:
 	MineGrid *minegrid;
+	InfoBox *infoBox;
 
 	QVBoxLayout *vBox;
 	QHBoxLayout *topBox;
+	QBoxLayout* qBox;
 	QLabel *mineCountLbl;
 	QLabel *timeLabel;
 	QTimer *timer;
@@ -22,6 +25,7 @@ public:
 	int time;
 
 	void initUI();
+	QLabel* createBorder();
 	void setText(QString text);
 	void timerSlot();
 	void retryClicked(int r, int c, int max);

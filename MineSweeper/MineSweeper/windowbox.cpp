@@ -2,12 +2,15 @@
 #include <QDebug>
 #include "windowbox.h"
 #include "event.h"
+#include "infobox.h"
 
 const int BTNWIDTH = 55;
 const int BTNHEIGHT = 27;
 
 WindowBox::WindowBox(int r, int c, int max, QWidget *parent) {
 	minegrid = new MineGrid(r, c, max);
+	infoBox = new InfoBox();
+
 	textChanged = minegrid->changedSig;
 	gameOverSig = minegrid->gameOverSig;
 	connect(textChanged, &TextChanged::valueChanged, this, &WindowBox::setText);
@@ -26,6 +29,7 @@ WindowBox::WindowBox(int r, int c, int max, QWidget *parent) {
 void WindowBox::initUI() {
 	vBox = new QVBoxLayout(this);
 	topBox = new QHBoxLayout();
+	qBox = new QBoxLayout(QBoxLayout::LeftToRight);
 	mineCountLbl = new QLabel(QString::number(minegrid->getRemainingMine()));
 	mineCountLbl->setFixedWidth(BTNWIDTH);
 	mineCountLbl->setFixedHeight(BTNHEIGHT);
@@ -46,8 +50,19 @@ void WindowBox::initUI() {
 	topBox->addWidget(timeLabel);
 	topBox->addWidget(retryBtn);
 	vBox->addLayout(topBox);
-	vBox->addLayout(minegrid->getGrid());
+
+	qBox->addLayout(minegrid->getGrid());
+	qBox->addLayout(infoBox->getInfoBox());
+	qBox->setSpacing(20);
+	vBox->addLayout(qBox);
 	setLayout(vBox);
+	setMinimumWidth(700);
+}
+
+QLabel* WindowBox::createBorder() {
+	QLabel* lbl = new QLabel();
+	lbl->setFrameStyle(QFrame::Box | QFrame::Raised);
+	return lbl;
 }
 
 void WindowBox::setText(QString text) {

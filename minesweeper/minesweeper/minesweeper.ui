@@ -6,16 +6,15 @@
   </property>
   <property name="geometry" >
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>600</width>
-	<height>400</height>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>MineSweeper</string>
-  </property>
-  <widget class="QMenuBar" name="menuBar" />
+  </property>  <widget class="QMenuBar" name="menuBar" />
   <widget class="QToolBar" name="mainToolBar" />
   <widget class="QWidget" name="centralWidget" />
   <widget class="QStatusBar" name="statusBar" />
